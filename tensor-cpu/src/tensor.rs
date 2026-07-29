@@ -1,6 +1,10 @@
 use crate::Cpu;
-use smallvec::SmallVec;
-use tensor_core::{backend::TensorOps, dtype::SupportedDType, tensor_metadata::TensorMetadata};
+use smallvec::{SmallVec, smallvec};
+use tensor_core::{
+    backend::TensorOps,
+    dtype::SupportedDType,
+    tensor_metadata::{TensorMetadata, shape::Shape},
+};
 
 pub struct CpuTensor<T: SupportedDType<Cpu>> {
     data: SmallVec<[T; 1]>,
@@ -9,4 +13,14 @@ pub struct CpuTensor<T: SupportedDType<Cpu>> {
 
 impl TensorOps for Cpu {
     type Tensor<T: SupportedDType<Self>> = CpuTensor<T>;
+
+    fn full<T: SupportedDType<Self>>(fill_value: T, shape: Shape) -> Self::Tensor<T>
+    where
+        Self: tensor_core::backend::Backend,
+    {
+        let metadata = TensorMetadata::new(shape);
+        let data = smallvec![fill_value; metadata.num_items() as usize];
+
+        Self::Tensor { data, metadata }
+    }
 }
