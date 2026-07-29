@@ -1,8 +1,5 @@
-use tensor_core::{
-    backend::{Backend, TensorOps},
-    dtype::SupportedDType,
-    tensor_metadata::shape::Shape,
-};
+use crate::backend::Backend;
+use tensor_core::{backend::TensorOps, dtype::SupportedDType, tensor_metadata::shape::Shape};
 
 type RawTensor<B, T> = <B as TensorOps>::Tensor<T>;
 

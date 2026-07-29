@@ -1,4 +1,4 @@
-use crate::backend::Backend;
+use crate::backend::BackendKind;
 
 #[derive(Clone, Copy, PartialEq, Eq, Debug, Hash)]
 pub enum DType {
@@ -32,6 +32,6 @@ mod sealed {
     }
 }
 
-pub trait SupportedDType<B: Backend>: sealed::Primitive {
+pub trait SupportedDType<B: BackendKind>: sealed::Primitive {
     const DTYPE: DType = <Self as sealed::Primitive>::DTYPE;
 }

@@ -14,10 +14,7 @@ pub struct CpuTensor<T: SupportedDType<Cpu>> {
 impl TensorOps for Cpu {
     type Tensor<T: SupportedDType<Self>> = CpuTensor<T>;
 
-    fn full<T: SupportedDType<Self>>(fill_value: T, shape: Shape) -> Self::Tensor<T>
-    where
-        Self: tensor_core::backend::Backend,
-    {
+    fn full<T: SupportedDType<Self>>(fill_value: T, shape: Shape) -> Self::Tensor<T> {
         let metadata = TensorMetadata::new(shape);
         let data = smallvec![fill_value; metadata.num_items() as usize];
 

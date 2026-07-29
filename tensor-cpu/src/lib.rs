@@ -1,8 +1,8 @@
-use tensor_core::backend::Backend;
+use tensor_core::backend::BackendKind;
 
 mod dtype;
 mod tensor;
 
 pub struct Cpu;
 
-impl Backend for Cpu {}
+impl BackendKind for Cpu {}
