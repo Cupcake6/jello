@@ -29,6 +29,12 @@ impl<const N: usize> From<[u64; N]> for Dimensions {
     }
 }
 
+impl From<&[u64]> for Dimensions {
+    fn from(value: &[u64]) -> Self {
+        Self(SmallVec::from_slice(value))
+    }
+}
+
 impl Deref for Dimensions {
     type Target = [u64];
 
