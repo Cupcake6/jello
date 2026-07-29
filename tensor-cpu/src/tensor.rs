@@ -20,4 +20,8 @@ impl TensorOps for Cpu {
 
         Self::Tensor { data, metadata }
     }
+
+    fn num_dims<T: SupportedDType<Self>>(tensor: &Self::Tensor<T>) -> usize {
+        tensor.metadata.num_dims()
+    }
 }
