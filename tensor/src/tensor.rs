@@ -13,4 +13,8 @@ impl<B: Backend, T: SupportedDType<B>> Tensor<B, T> {
     pub fn num_dims(&self) -> usize {
         B::num_dims(&self.0)
     }
+
+    pub fn num_items(&self) -> u64 {
+        B::num_items(&self.0)
+    }
 }
