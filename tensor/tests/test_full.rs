@@ -25,7 +25,7 @@ where
 }
 
 #[test]
-fn test_0d() {
+fn test_metadata_0d() {
     assert_metadata::<Cpu, _, _>(3.1f32, []);
     assert_metadata::<Cpu, _, _>(4u32, []);
     assert_metadata::<Cpu, _, _>(-8i32, []);
@@ -33,7 +33,7 @@ fn test_0d() {
 }
 
 #[test]
-fn test_1d() {
+fn test_metadata_1d() {
     assert_metadata::<Cpu, _, _>(3.1f32, [2]);
     assert_metadata::<Cpu, _, _>(4u32, [0]);
     assert_metadata::<Cpu, _, _>(-8i32, [4]);
@@ -41,7 +41,7 @@ fn test_1d() {
 }
 
 #[test]
-fn test_2d() {
+fn test_metadata_2d() {
     assert_metadata::<Cpu, _, _>(3.1f32, [4, 2]);
     assert_metadata::<Cpu, _, _>(4u32, [0, 1]);
     assert_metadata::<Cpu, _, _>(-8i32, [0, 0]);
@@ -49,7 +49,7 @@ fn test_2d() {
 }
 
 #[test]
-fn test_3d() {
+fn test_metadata_3d() {
     assert_metadata::<Cpu, _, _>(3.1f32, [2, 2, 3]);
     assert_metadata::<Cpu, _, _>(4u32, [0, 2, 8]);
     assert_metadata::<Cpu, _, _>(-8i32, [0, 0, 0]);
@@ -57,7 +57,7 @@ fn test_3d() {
 }
 
 #[test]
-fn test_4d() {
+fn test_metadata_4d() {
     assert_metadata::<Cpu, _, _>(3.1f32, [0, 0, 0, 0]);
     assert_metadata::<Cpu, _, _>(4u32, [2, 3, 2, 4]);
     assert_metadata::<Cpu, _, _>(-8i32, [1, 1, 1, 1]);
