@@ -1,5 +1,9 @@
 use crate::backend::Backend;
-use tensor_core::{backend::TensorOps, dtype::SupportedDType, tensor_metadata::shape::Shape};
+use tensor_core::{
+    backend::TensorOps,
+    dtype::SupportedDType,
+    tensor_metadata::{shape::Shape, stride::Stride},
+};
 
 type RawTensor<B, T> = <B as TensorOps>::Tensor<T>;
 
@@ -20,5 +24,9 @@ impl<B: Backend, T: SupportedDType<B>> Tensor<B, T> {
 
     pub fn shape(&self) -> &Shape {
         B::shape(&self.0)
+    }
+
+    pub fn stride(&self) -> &Stride {
+        B::stride(&self.0)
     }
 }
