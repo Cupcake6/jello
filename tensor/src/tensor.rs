@@ -17,4 +17,8 @@ impl<B: Backend, T: SupportedDType<B>> Tensor<B, T> {
     pub fn num_items(&self) -> u64 {
         B::num_items(&self.0)
     }
+
+    pub fn shape(&self) -> &Shape {
+        B::shape(&self.0)
+    }
 }
