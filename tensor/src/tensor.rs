@@ -1,10 +1,15 @@
 use tensor_core::{
     backend::{Backend, TensorOps},
     dtype::SupportedDType,
+    tensor_metadata::shape::Shape,
 };
 
 type RawTensor<B, T> = <B as TensorOps>::Tensor<T>;
 
 pub struct Tensor<B: Backend, T: SupportedDType<B>>(RawTensor<B, T>);
 
-impl<B: Backend, T: SupportedDType<B>> Tensor<B, T> {}
+impl<B: Backend, T: SupportedDType<B>> Tensor<B, T> {
+    pub fn full<S: Into<Shape>>(fill_value: T, shape: S) -> Self {
+        Self(B::full(fill_value, shape.into()))
+    }
+}
