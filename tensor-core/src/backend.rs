@@ -8,4 +8,5 @@ pub trait TensorOps: BackendKind {
     fn full<T: SupportedDType<Self>>(fill_value: T, shape: Shape) -> Self::Tensor<T>;
     fn num_dims<T: SupportedDType<Self>>(tensor: &Self::Tensor<T>) -> usize;
     fn num_items<T: SupportedDType<Self>>(tensor: &Self::Tensor<T>) -> u64;
+    fn shape<T: SupportedDType<Self>>(tensor: &Self::Tensor<T>) -> &Shape;
 }

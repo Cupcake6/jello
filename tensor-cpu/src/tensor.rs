@@ -28,4 +28,8 @@ impl TensorOps for Cpu {
     fn num_items<T: SupportedDType<Self>>(tensor: &Self::Tensor<T>) -> u64 {
         tensor.metadata.num_items()
     }
+
+    fn shape<T: SupportedDType<Self>>(tensor: &Self::Tensor<T>) -> &Shape {
+        tensor.metadata.shape()
+    }
 }
