@@ -1,6 +1,6 @@
 use tensor_core::backend::Backend;
 
-pub mod tensor;
+mod tensor;
 
 pub struct Cpu;
 
