@@ -3,7 +3,7 @@ use smallvec::{SmallVec, smallvec};
 use tensor_core::{
     backend::TensorOps,
     dtype::SupportedDType,
-    tensor_metadata::{TensorMetadata, shape::Shape},
+    tensor_metadata::{TensorMetadata, shape::Shape, stride::Stride},
 };
 
 pub struct CpuTensor<T: SupportedDType<Cpu>> {
@@ -31,5 +31,9 @@ impl TensorOps for Cpu {
 
     fn shape<T: SupportedDType<Self>>(tensor: &Self::Tensor<T>) -> &Shape {
         tensor.metadata.shape()
+    }
+
+    fn stride<T: SupportedDType<Self>>(tensor: &Self::Tensor<T>) -> &Stride {
+        tensor.metadata.stride()
     }
 }
