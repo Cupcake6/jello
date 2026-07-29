@@ -1,3 +1,3 @@
 [workspace]
 resolver = "3"
-members = ["tensor-core", "tensor-cpu"]
+members = ["tensor","tensor-core", "tensor-cpu"]
