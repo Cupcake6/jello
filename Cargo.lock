@@ -13,7 +13,6 @@ name = "tensor"
 version = "0.1.0"
 dependencies = [
  "tensor-core",
- "tensor-cpu",
 ]
 
 [[package]]
