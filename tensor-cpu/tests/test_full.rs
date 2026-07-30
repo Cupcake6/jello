@@ -1,5 +1,7 @@
 use tensor::prelude::*;
-use tensor_cpu::Cpu;
+use tensor_cpu::CpuBackend;
+
+type B = CpuBackend;
 
 fn contiguous_stride<const N: usize>(shape: [u64; N]) -> [u64; N] {
     let mut output = [0; N];
@@ -27,40 +29,40 @@ where
 
 #[test]
 fn test_metadata_0d() {
-    assert_metadata::<Cpu, _, _>(3.1f32, []);
-    assert_metadata::<Cpu, _, _>(4u32, []);
-    assert_metadata::<Cpu, _, _>(-8i32, []);
-    assert_metadata::<Cpu, _, _>(false, []);
+    assert_metadata::<B, _, _>(3.1f32, []);
+    assert_metadata::<B, _, _>(4u32, []);
+    assert_metadata::<B, _, _>(-8i32, []);
+    assert_metadata::<B, _, _>(false, []);
 }
 
 #[test]
 fn test_metadata_1d() {
-    assert_metadata::<Cpu, _, _>(3.1f32, [2]);
-    assert_metadata::<Cpu, _, _>(4u32, [0]);
-    assert_metadata::<Cpu, _, _>(-8i32, [4]);
-    assert_metadata::<Cpu, _, _>(false, [1]);
+    assert_metadata::<B, _, _>(3.1f32, [2]);
+    assert_metadata::<B, _, _>(4u32, [0]);
+    assert_metadata::<B, _, _>(-8i32, [4]);
+    assert_metadata::<B, _, _>(false, [1]);
 }
 
 #[test]
 fn test_metadata_2d() {
-    assert_metadata::<Cpu, _, _>(3.1f32, [4, 2]);
-    assert_metadata::<Cpu, _, _>(4u32, [0, 1]);
-    assert_metadata::<Cpu, _, _>(-8i32, [0, 0]);
-    assert_metadata::<Cpu, _, _>(false, [3, 0]);
+    assert_metadata::<B, _, _>(3.1f32, [4, 2]);
+    assert_metadata::<B, _, _>(4u32, [0, 1]);
+    assert_metadata::<B, _, _>(-8i32, [0, 0]);
+    assert_metadata::<B, _, _>(false, [3, 0]);
 }
 
 #[test]
 fn test_metadata_3d() {
-    assert_metadata::<Cpu, _, _>(3.1f32, [2, 2, 3]);
-    assert_metadata::<Cpu, _, _>(4u32, [0, 2, 8]);
-    assert_metadata::<Cpu, _, _>(-8i32, [0, 0, 0]);
-    assert_metadata::<Cpu, _, _>(false, [1, 1, 1]);
+    assert_metadata::<B, _, _>(3.1f32, [2, 2, 3]);
+    assert_metadata::<B, _, _>(4u32, [0, 2, 8]);
+    assert_metadata::<B, _, _>(-8i32, [0, 0, 0]);
+    assert_metadata::<B, _, _>(false, [1, 1, 1]);
 }
 
 #[test]
 fn test_metadata_4d() {
-    assert_metadata::<Cpu, _, _>(3.1f32, [0, 0, 0, 0]);
-    assert_metadata::<Cpu, _, _>(4u32, [2, 3, 2, 4]);
-    assert_metadata::<Cpu, _, _>(-8i32, [1, 1, 1, 1]);
-    assert_metadata::<Cpu, _, _>(false, [4, 0, 8, 2]);
+    assert_metadata::<B, _, _>(3.1f32, [0, 0, 0, 0]);
+    assert_metadata::<B, _, _>(4u32, [2, 3, 2, 4]);
+    assert_metadata::<B, _, _>(-8i32, [1, 1, 1, 1]);
+    assert_metadata::<B, _, _>(false, [4, 0, 8, 2]);
 }

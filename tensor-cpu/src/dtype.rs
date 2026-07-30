@@ -1,7 +1,7 @@
-use crate::Cpu;
+use crate::CpuBackend as B;
 use tensor_core::dtype::SupportedDType;
 
-impl SupportedDType<Cpu> for f32 {}
-impl SupportedDType<Cpu> for u32 {}
-impl SupportedDType<Cpu> for i32 {}
-impl SupportedDType<Cpu> for bool {}
+impl SupportedDType<B> for f32 {}
+impl SupportedDType<B> for u32 {}
+impl SupportedDType<B> for i32 {}
+impl SupportedDType<B> for bool {}
