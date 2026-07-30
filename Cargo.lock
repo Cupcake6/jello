@@ -27,5 +27,6 @@ name = "tensor-cpu"
 version = "0.1.0"
 dependencies = [
  "smallvec",
+ "tensor",
  "tensor-core",
 ]

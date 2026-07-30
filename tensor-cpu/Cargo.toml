@@ -6,3 +6,6 @@ edition = "2024"
 [dependencies]
 smallvec = "1.15.2"
 tensor-core = { path = "../tensor-core" }
+
+[dev-dependencies]
+tensor = { path = "../tensor" }
