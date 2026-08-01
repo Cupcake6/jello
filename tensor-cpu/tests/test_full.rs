@@ -1,3 +1,4 @@
+use rstest::rstest;
 use tensor::prelude::*;
 use tensor_cpu::CpuBackend;
 
@@ -15,9 +16,32 @@ fn contiguous_stride<const N: usize>(shape: [u64; N]) -> [u64; N] {
     output
 }
 
-fn assert_metadata<B, T, const N: usize>(fill_value: T, shape: [u64; N])
-where
-    B: Backend,
+#[rstest]
+fn assert_metadata<T, const N: usize>(
+    #[values(42.42f32, 123u32, -23i32, false, true)] fill_value: T,
+    #[values(
+        [],
+        [0],
+        [1],
+        [4],
+        [0, 0],
+        [3, 0],
+        [1, 1],
+        [1, 8],
+        [2, 3],
+        [0, 0, 0],
+        [0, 4, 5],
+        [1, 1, 1],
+        [8, 9, 1],
+        [2, 9, 4],
+        [0, 0, 0, 0],
+        [5, 4, 0, 3],
+        [1, 1, 1, 1],
+        [8, 1, 9, 5],
+        [4, 8, 3, 9],
+    )]
+    shape: [u64; N],
+) where
     T: SupportedDType<B>,
 {
     let tensor = Tensor::full(fill_value, shape);
@@ -25,44 +49,4 @@ where
     assert_eq!(tensor.num_items(), shape.iter().product());
     assert_eq!(***tensor.shape(), shape);
     assert_eq!(***tensor.stride(), contiguous_stride(shape))
-}
-
-#[test]
-fn test_metadata_0d() {
-    assert_metadata::<B, _, _>(3.1f32, []);
-    assert_metadata::<B, _, _>(4u32, []);
-    assert_metadata::<B, _, _>(-8i32, []);
-    assert_metadata::<B, _, _>(false, []);
-}
-
-#[test]
-fn test_metadata_1d() {
-    assert_metadata::<B, _, _>(3.1f32, [2]);
-    assert_metadata::<B, _, _>(4u32, [0]);
-    assert_metadata::<B, _, _>(-8i32, [4]);
-    assert_metadata::<B, _, _>(false, [1]);
-}
-
-#[test]
-fn test_metadata_2d() {
-    assert_metadata::<B, _, _>(3.1f32, [4, 2]);
-    assert_metadata::<B, _, _>(4u32, [0, 1]);
-    assert_metadata::<B, _, _>(-8i32, [0, 0]);
-    assert_metadata::<B, _, _>(false, [3, 0]);
-}
-
-#[test]
-fn test_metadata_3d() {
-    assert_metadata::<B, _, _>(3.1f32, [2, 2, 3]);
-    assert_metadata::<B, _, _>(4u32, [0, 2, 8]);
-    assert_metadata::<B, _, _>(-8i32, [0, 0, 0]);
-    assert_metadata::<B, _, _>(false, [1, 1, 1]);
-}
-
-#[test]
-fn test_metadata_4d() {
-    assert_metadata::<B, _, _>(3.1f32, [0, 0, 0, 0]);
-    assert_metadata::<B, _, _>(4u32, [2, 3, 2, 4]);
-    assert_metadata::<B, _, _>(-8i32, [1, 1, 1, 1]);
-    assert_metadata::<B, _, _>(false, [4, 0, 8, 2]);
 }
