@@ -6,9 +6,10 @@ impl<T: SupportedDType<B>> TensorDisplay<T> for CpuTensor<T> {
     fn display(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Tensor(backend={}, dtype={})",
+            "Tensor(backend={}, dtype={}, shape={})",
             <B as Backend>::NAME,
-            self.dtype().name()
+            self.dtype().name(),
+            self.metadata.shape().dimensions(),
         )
     }
 }
