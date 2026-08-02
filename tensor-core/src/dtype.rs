@@ -8,6 +8,17 @@ pub enum DType {
     Bool,
 }
 
+impl DType {
+    pub const fn name(self) -> &'static str {
+        match self {
+            Self::F32 => "F32",
+            Self::U32 => "U32",
+            Self::I32 => "I32",
+            Self::Bool => "Bool",
+        }
+    }
+}
+
 mod sealed {
     use super::DType;
 
