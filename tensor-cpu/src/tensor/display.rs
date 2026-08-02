@@ -1,9 +1,18 @@
 use crate::{CpuBackend as B, tensor::CpuTensor};
 use std::fmt;
-use tensor_core::{dtype::SupportedDType, tensor::TensorDisplay};
+use tensor_core::{
+    backend::Backend,
+    dtype::SupportedDType,
+    tensor::{TensorDisplay, TensorOps},
+};
 
 impl<T: SupportedDType<B>> TensorDisplay<T> for CpuTensor<T> {
     fn display(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "cpu_tensor")
+        write!(
+            f,
+            "Tensor(backend={}, dtype={})",
+            <B as Backend>::NAME,
+            self.dtype().name()
+        )
     }
 }
