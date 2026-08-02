@@ -2,9 +2,11 @@ use crate::CpuBackend as B;
 use smallvec::{SmallVec, smallvec};
 use tensor_core::{
     dtype::SupportedDType,
+    tensor::TensorOps,
     tensor_metadata::{TensorMetadata, shape::Shape, stride::Stride},
-    tensor_ops::TensorOps,
 };
+
+mod display;
 
 pub struct CpuTensor<T: SupportedDType<B>> {
     data: SmallVec<[T; 1]>,

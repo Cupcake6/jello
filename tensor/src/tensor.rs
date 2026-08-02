@@ -1,8 +1,8 @@
 use crate::backend::Backend;
 use tensor_core::{
     dtype::SupportedDType,
+    tensor::TensorOps,
     tensor_metadata::{shape::Shape, stride::Stride},
-    tensor_ops::TensorOps,
 };
 
 type TensorPrimitive<B, T> = <B as Backend>::TensorPrimitive<T>;
