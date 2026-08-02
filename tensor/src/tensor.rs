@@ -1,7 +1,8 @@
 use crate::backend::Backend;
+use std::fmt;
 use tensor_core::{
     dtype::SupportedDType,
-    tensor::TensorOps,
+    tensor::{TensorDisplay, TensorOps},
     tensor_metadata::{shape::Shape, stride::Stride},
 };
 
@@ -31,5 +32,11 @@ impl<B: Backend, T: SupportedDType<B>> Tensor<B, T> {
 
     pub fn stride(&self) -> &Stride {
         self.0.stride()
+    }
+}
+
+impl<B: Backend, T: SupportedDType<B>> fmt::Display for Tensor<B, T> {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        self.0.display(f)
     }
 }
