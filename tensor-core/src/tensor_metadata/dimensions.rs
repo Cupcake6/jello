@@ -1,4 +1,5 @@
 use smallvec::{SmallVec, smallvec};
+use std::fmt;
 use std::ops::{Deref, DerefMut};
 
 pub struct Dimensions(SmallVec<[u64; Self::NUM_INLINE_DIMS]>);
@@ -46,5 +47,19 @@ impl Deref for Dimensions {
 impl DerefMut for Dimensions {
     fn deref_mut(&mut self) -> &mut Self::Target {
         self.0.as_mut_slice()
+    }
+}
+
+impl fmt::Display for Dimensions {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(
+            f,
+            "[{}]",
+            self.as_slice()
+                .iter()
+                .map(|x| x.to_string())
+                .collect::<Vec<String>>()
+                .join(", ")
+        )
     }
 }
