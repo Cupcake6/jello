@@ -1,7 +1,7 @@
 use crate::backend::Backend;
 use std::fmt;
 use tensor_core::{
-    dtype::SupportedDType,
+    dtype::{DType, SupportedDType},
     tensor::{TensorDisplay, TensorOps},
     tensor_metadata::{shape::Shape, stride::Stride},
 };
@@ -32,6 +32,10 @@ impl<B: Backend, T: SupportedDType<B>> Tensor<B, T> {
 
     pub fn stride(&self) -> &Stride {
         self.0.stride()
+    }
+
+    pub fn dtype(&self) -> DType {
+        self.0.dtype()
     }
 }
 
