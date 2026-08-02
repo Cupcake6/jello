@@ -48,5 +48,6 @@ fn assert_metadata<T, const N: usize>(
     assert_eq!(tensor.num_dims(), shape.len());
     assert_eq!(tensor.num_items(), shape.iter().product());
     assert_eq!(***tensor.shape(), shape);
-    assert_eq!(***tensor.stride(), contiguous_stride(shape))
+    assert_eq!(***tensor.stride(), contiguous_stride(shape));
+    assert_eq!(tensor.dtype(), <T as SupportedDType<B>>::DTYPE);
 }
