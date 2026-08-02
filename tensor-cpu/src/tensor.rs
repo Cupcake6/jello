@@ -1,6 +1,7 @@
 use crate::CpuBackend as B;
 use smallvec::{SmallVec, smallvec};
 use tensor_core::{
+    dtype::DType,
     dtype::SupportedDType,
     tensor::TensorOps,
     tensor_metadata::{TensorMetadata, shape::Shape, stride::Stride},
@@ -35,5 +36,9 @@ impl<T: SupportedDType<B>> TensorOps<T> for CpuTensor<T> {
 
     fn stride(&self) -> &Stride {
         self.metadata.stride()
+    }
+
+    fn dtype(&self) -> DType {
+        <T as SupportedDType<B>>::DTYPE
     }
 }
