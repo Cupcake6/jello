@@ -14,6 +14,12 @@ pub struct CpuTensor<T: SupportedDType<B>> {
     metadata: TensorMetadata,
 }
 
+impl<T: SupportedDType<B>> CpuTensor<T> {
+    const fn dtype(&self) -> DType {
+        <T as SupportedDType<B>>::DTYPE
+    }
+}
+
 impl<T: SupportedDType<B>> TensorOps<T> for CpuTensor<T> {
     fn full(fill_value: T, shape: Shape) -> Self {
         let metadata = TensorMetadata::new(shape);
@@ -39,6 +45,6 @@ impl<T: SupportedDType<B>> TensorOps<T> for CpuTensor<T> {
     }
 
     fn dtype(&self) -> DType {
-        <T as SupportedDType<B>>::DTYPE
+        CpuTensor::dtype(&self)
     }
 }
