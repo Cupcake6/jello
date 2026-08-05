@@ -7,6 +7,8 @@ use tensor_core::{
     tensor_metadata::{shape::Shape, stride::Stride},
 };
 
+pub mod error;
+
 type TensorPrimitive<B, T> = <B as Backend>::TensorPrimitive<T>;
 
 pub struct Tensor<B, T>(TensorPrimitive<B, T>)
@@ -17,6 +19,16 @@ where
 impl<B: Backend, T: SupportedDType<B>> Tensor<B, T> {
     pub fn full<S: Into<Shape>>(fill_value: T, shape: S) -> Self {
         Self(TensorPrimitive::<B, T>::full(fill_value, shape.into()))
+    }
+
+    pub fn from_flat_slice<S: Into<Shape>>(
+        shape: S,
+        flat_slice: &[T],
+    ) -> Result<Self, error::ItemNumberMismatchError> {
+        Ok(Self(TensorPrimitive::<B, T>::from_flat_slice(
+            shape.into(),
+            flat_slice,
+        )?))
     }
 
     pub fn num_dims(&self) -> usize {
