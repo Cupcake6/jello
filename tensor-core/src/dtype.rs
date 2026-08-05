@@ -21,8 +21,9 @@ impl DType {
 
 mod sealed {
     use super::DType;
+    use std::fmt::Debug;
 
-    pub trait Primitive: Copy + Send + Sync + 'static {
+    pub trait Primitive: Copy + Send + Sync + Debug + 'static {
         const DTYPE: DType;
     }
 
