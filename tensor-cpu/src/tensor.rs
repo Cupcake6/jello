@@ -10,8 +10,8 @@ use tensor_core::{
 mod display;
 
 pub struct CpuTensor<T: SupportedDType<B>> {
-    data: SmallVec<[T; 1]>,
-    metadata: TensorMetadata,
+    pub(crate) data: SmallVec<[T; 1]>,
+    pub(crate) metadata: TensorMetadata,
 }
 
 impl<T: SupportedDType<B>> CpuTensor<T> {

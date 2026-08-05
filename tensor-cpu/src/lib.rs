@@ -2,6 +2,7 @@ use tensor_core::{backend::Backend, dtype::SupportedDType};
 
 mod dtype;
 mod tensor;
+mod tensor_features;
 
 pub struct CpuBackend;
 
