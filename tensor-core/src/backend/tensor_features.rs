@@ -4,4 +4,8 @@ pub trait FlatIter: Backend {
     fn flat_iter<'a, T: SupportedDType<Self>>(
         tensor: &'a Self::TensorPrimitive<T>,
     ) -> impl Iterator<Item = &'a T>;
+
+    fn flat_iter_mut<'a, T: SupportedDType<Self>>(
+        tensor: &'a mut Self::TensorPrimitive<T>,
+    ) -> impl Iterator<Item = &'a mut T>;
 }

@@ -11,10 +11,26 @@ impl<'a, T: SupportedDType<B>> Iterator for CpuFlatIter<'a, T> {
     }
 }
 
+pub struct CpuFlatIterMut<'a, T: SupportedDType<B>>(std::slice::IterMut<'a, T>);
+
+impl<'a, T: SupportedDType<B>> Iterator for CpuFlatIterMut<'a, T> {
+    type Item = &'a mut T;
+
+    fn next(&mut self) -> Option<Self::Item> {
+        self.0.next()
+    }
+}
+
 impl FlatIter for B {
     fn flat_iter<'a, T: SupportedDType<Self>>(
         tensor: &'a Self::TensorPrimitive<T>,
     ) -> impl Iterator<Item = &'a T> {
         CpuFlatIter(tensor.data.iter())
+    }
+
+    fn flat_iter_mut<'a, T: SupportedDType<Self>>(
+        tensor: &'a mut Self::TensorPrimitive<T>,
+    ) -> impl Iterator<Item = &'a mut T> {
+        CpuFlatIterMut(tensor.data.iter_mut())
     }
 }
