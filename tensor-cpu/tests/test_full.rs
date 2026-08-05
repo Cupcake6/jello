@@ -16,8 +16,18 @@ fn contiguous_stride<const N: usize>(shape: [u64; N]) -> [u64; N] {
     output
 }
 
+fn assert_data<T: SupportedDType<B>>(fill_value: T, tensor: &mut Tensor<B, T>) {
+    for item in tensor.flat_iter() {
+        assert_eq!(*item, fill_value);
+    }
+
+    for item_mut in tensor.flat_iter_mut() {
+        assert_eq!(*item_mut, fill_value);
+    }
+}
+
 #[rstest]
-fn assert_metadata<T, const N: usize>(
+fn assert_tensor<T, const N: usize>(
     #[values(42.42f32, 123u32, -23i32, false, true)] fill_value: T,
     #[values(
         [],
@@ -44,10 +54,11 @@ fn assert_metadata<T, const N: usize>(
 ) where
     T: SupportedDType<B>,
 {
-    let tensor = Tensor::full(fill_value, shape);
+    let mut tensor = Tensor::full(fill_value, shape);
     assert_eq!(tensor.num_dims(), shape.len());
     assert_eq!(tensor.num_items(), shape.iter().product());
     assert_eq!(***tensor.shape(), shape);
     assert_eq!(***tensor.stride(), contiguous_stride(shape));
     assert_eq!(tensor.dtype(), <T as SupportedDType<B>>::DTYPE);
+    assert_data(fill_value, &mut tensor);
 }
