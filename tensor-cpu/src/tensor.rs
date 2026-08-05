@@ -1,9 +1,8 @@
 use crate::CpuBackend as B;
 use smallvec::{SmallVec, smallvec};
 use tensor_core::{
-    dtype::DType,
-    dtype::SupportedDType,
-    tensor::TensorOps,
+    dtype::{DType, SupportedDType},
+    tensor::{TensorOps, error},
     tensor_metadata::{TensorMetadata, shape::Shape, stride::Stride},
 };
 
@@ -24,6 +23,24 @@ impl<T: SupportedDType<B>> TensorOps<T> for CpuTensor<T> {
         let data = smallvec![fill_value; metadata.num_items() as usize];
 
         Self { data, metadata }
+    }
+
+    fn from_flat_slice(
+        shape: Shape,
+        flat_slice: &[T],
+    ) -> Result<Self, error::ItemNumberMismatchError> {
+        let metadata = TensorMetadata::new(shape);
+
+        let expected = metadata.num_items();
+        let provided = flat_slice.len() as u64;
+        if expected != provided {
+            return Err(error::ItemNumberMismatchError(expected, provided));
+        }
+
+        Ok(Self {
+            data: SmallVec::from_slice(flat_slice),
+            metadata,
+        })
     }
 
     fn num_dims(&self) -> usize {
