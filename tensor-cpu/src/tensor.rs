@@ -7,8 +7,6 @@ use tensor_core::{
     tensor_metadata::{TensorMetadata, shape::Shape, stride::Stride},
 };
 
-mod display;
-
 pub struct CpuTensor<T: SupportedDType<B>> {
     pub(crate) data: SmallVec<[T; 1]>,
     pub(crate) metadata: TensorMetadata,

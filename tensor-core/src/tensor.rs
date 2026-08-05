@@ -2,7 +2,6 @@ use crate::{
     dtype::DType,
     tensor_metadata::{shape::Shape, stride::Stride},
 };
-use std::fmt;
 
 pub trait TensorOps<T> {
     fn full(fill_value: T, shape: Shape) -> Self;
@@ -11,8 +10,4 @@ pub trait TensorOps<T> {
     fn shape(&self) -> &Shape;
     fn stride(&self) -> &Stride;
     fn dtype(&self) -> DType;
-}
-
-pub trait TensorDisplay<T> {
-    fn display(&self, f: &mut fmt::Formatter) -> fmt::Result;
 }

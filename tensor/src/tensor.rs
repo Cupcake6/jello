@@ -3,7 +3,7 @@ use std::fmt;
 use tensor_core::{
     backend::tensor_features,
     dtype::{DType, SupportedDType},
-    tensor::{TensorDisplay, TensorOps},
+    tensor::TensorOps,
     tensor_metadata::{shape::Shape, stride::Stride},
 };
 
@@ -55,6 +55,12 @@ where
 
 impl<B: Backend, T: SupportedDType<B>> fmt::Display for Tensor<B, T> {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        self.0.display(f)
+        write!(
+            f,
+            "Tensor(backend={}, dtype={}, shape={})",
+            B::NAME,
+            self.dtype().name(),
+            self.shape().dimensions()
+        )
     }
 }
