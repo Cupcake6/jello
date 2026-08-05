@@ -12,11 +12,9 @@ impl<'a, T: SupportedDType<B>> Iterator for CpuFlatIter<'a, T> {
 }
 
 impl FlatIter for B {
-    type Iterator<'a, T: SupportedDType<Self>> = CpuFlatIter<'a, T>;
-
     fn flat_iter<'a, T: SupportedDType<Self>>(
         tensor: &'a Self::TensorPrimitive<T>,
-    ) -> Self::Iterator<'a, T> {
+    ) -> impl Iterator<Item = &'a T> {
         CpuFlatIter(tensor.data.iter())
     }
 }
