@@ -1,6 +1,7 @@
 use crate::backend::Backend;
 use std::fmt;
 use tensor_core::{
+    backend::tensor_features,
     dtype::{DType, SupportedDType},
     tensor::{TensorDisplay, TensorOps},
     tensor_metadata::{shape::Shape, stride::Stride},
@@ -36,6 +37,15 @@ impl<B: Backend, T: SupportedDType<B>> Tensor<B, T> {
 
     pub fn dtype(&self) -> DType {
         self.0.dtype()
+    }
+}
+
+impl<B, T: SupportedDType<B>> Tensor<B, T>
+where
+    B: Backend + tensor_features::FlatIter,
+{
+    pub fn flat_iter<'a>(&'a self) -> impl Iterator<Item = &'a T> {
+        B::flat_iter(&self.0)
     }
 }
 
