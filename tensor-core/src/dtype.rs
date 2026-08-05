@@ -23,7 +23,7 @@ mod sealed {
     use super::DType;
     use std::fmt::Debug;
 
-    pub trait Primitive: Copy + Send + Sync + Debug + 'static {
+    pub trait Primitive: Copy + Send + Sync + Debug + PartialEq + 'static {
         const DTYPE: DType;
     }
 
