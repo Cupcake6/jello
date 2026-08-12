@@ -1,0 +1,8 @@
+[package]
+name = "example-display"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+tensor = { path = "../../tensor" }
+tensor-cpu = { path = "../../tensor-cpu" }
