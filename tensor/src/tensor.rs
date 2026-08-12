@@ -11,7 +11,7 @@ pub mod error;
 
 type TensorPrimitive<B, T> = <B as Backend>::TensorPrimitive<T>;
 
-pub struct Tensor<B, T>(TensorPrimitive<B, T>)
+pub struct Tensor<B, T = <B as Backend>::DefaultDType>(TensorPrimitive<B, T>)
 where
     B: Backend,
     T: SupportedDType<B>;
