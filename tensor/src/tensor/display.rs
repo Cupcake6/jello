@@ -79,7 +79,7 @@ where
             }
         }
 
-        write!(f, "{}", flat_iter.next().unwrap())?;
+        write!(f, "{:.2}", flat_iter.next().unwrap())?;
 
         for _ in 0..self.0.num_dims() {
             write!(f, "]")?;
