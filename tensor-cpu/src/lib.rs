@@ -4,10 +4,15 @@ mod dtype;
 mod tensor;
 mod tensor_features;
 
+mod device {
+    pub struct CpuDevice;
+}
+
 pub struct CpuBackend;
 
 impl Backend for CpuBackend {
     const NAME: &'static str = "cpu";
     type DefaultDType = f32;
     type TensorPrimitive<T: SupportedDType<Self>> = tensor::CpuTensor<T>;
+    type DeviceInner = device::CpuDevice;
 }

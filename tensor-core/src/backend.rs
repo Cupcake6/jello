@@ -6,4 +6,5 @@ pub trait Backend: Sized {
     const NAME: &'static str;
     type DefaultDType: SupportedDType<Self>;
     type TensorPrimitive<T: SupportedDType<Self>>: TensorOps<T>;
+    type DeviceInner;
 }
