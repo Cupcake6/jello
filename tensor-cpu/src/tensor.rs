@@ -17,7 +17,7 @@ impl<T: SupportedDType<B>> CpuTensor<T> {
     }
 }
 
-impl<T: SupportedDType<B>> TensorOps<T> for CpuTensor<T> {
+impl<T: SupportedDType<B>> TensorOps<B, T> for CpuTensor<T> {
     fn full(fill_value: T, shape: Shape) -> Self {
         let metadata = TensorMetadata::new(shape);
         let data = smallvec![fill_value; metadata.num_items() as usize];

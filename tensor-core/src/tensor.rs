@@ -1,11 +1,12 @@
 use crate::{
-    dtype::DType,
+    backend::Backend,
+    dtype::{DType, SupportedDType},
     tensor_metadata::{shape::Shape, stride::Stride},
 };
 
 pub mod error;
 
-pub trait TensorOps<T>: Sized {
+pub trait TensorOps<B: Backend, T: SupportedDType<B>>: Sized {
     fn full(fill_value: T, shape: Shape) -> Self;
     fn from_flat_slice(
         shape: Shape,
