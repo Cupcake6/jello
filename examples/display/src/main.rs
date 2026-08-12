@@ -8,6 +8,6 @@ fn print<B: Backend + FlatIter, T: SupportedDType<B>>(tensor: Tensor<B, T>) {
 }
 
 fn main() {
-    let tensor = Tensor::<B, f32>::full(0.0, [2, 2]);
+    let tensor = Tensor::<B>::full(0.0, [2, 2]);
     print(tensor)
 }
