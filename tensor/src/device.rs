@@ -1,3 +1,3 @@
 use crate::backend::Backend;
 
-pub struct Device<B: Backend>(B::Device);
+pub struct Device<B: Backend>(pub(crate) B::Device);
