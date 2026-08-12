@@ -1,5 +1,4 @@
 use crate::backend::Backend;
-use std::fmt;
 use tensor_core::{
     backend::tensor_features,
     dtype::{DType, SupportedDType},
@@ -7,6 +6,7 @@ use tensor_core::{
     tensor_metadata::{shape::Shape, stride::Stride},
 };
 
+pub mod display;
 pub mod error;
 
 type TensorPrimitive<B, T> = <B as Backend>::TensorPrimitive<T>;
@@ -62,17 +62,5 @@ where
 
     pub fn flat_iter_mut<'a>(&'a mut self) -> impl Iterator<Item = &'a mut T> {
         B::flat_iter_mut(&mut self.0)
-    }
-}
-
-impl<B: Backend, T: SupportedDType<B>> fmt::Display for Tensor<B, T> {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(
-            f,
-            "Tensor(backend={}, dtype={}, shape={})",
-            B::NAME,
-            self.dtype().name(),
-            self.shape().dimensions()
-        )
     }
 }
