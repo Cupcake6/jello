@@ -7,5 +7,5 @@ pub trait Backend: Sized {
     type DefaultDType: SupportedDType<Self>;
 
     type TensorImpl<T: SupportedDType<Self>>: TensorOps<Self, T>;
-    type DeviceImpl;
+    type DeviceImpl: Clone;
 }
