@@ -2,6 +2,7 @@ use crate::{backend::Backend, device::Device};
 use tensor_core::{
     backend::tensor_features,
     dtype::{DType, SupportedDType},
+    dtype_traits,
     tensor::TensorOps,
     tensor_metadata::{shape::Shape, stride::Stride},
 };
@@ -55,6 +56,20 @@ impl<B: Backend, T: SupportedDType<B>> Tensor<B, T> {
 
     pub fn dtype(&self) -> DType {
         self.0.dtype()
+    }
+
+    pub fn zeros<S: Into<Shape>>(shape: S, device: &Device<B>) -> Self
+    where
+        T: dtype_traits::Zero,
+    {
+        Self(TensorImpl::<B, T>::zeros(shape.into(), &device.0))
+    }
+
+    pub fn ones<S: Into<Shape>>(shape: S, device: &Device<B>) -> Self
+    where
+        T: dtype_traits::One,
+    {
+        Self(TensorImpl::<B, T>::ones(shape.into(), &device.0))
     }
 }
 
