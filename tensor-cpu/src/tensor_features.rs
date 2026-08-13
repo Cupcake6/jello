@@ -23,13 +23,13 @@ impl<'a, T: SupportedDType<B>> Iterator for CpuFlatIterMut<'a, T> {
 
 impl FlatIter for B {
     fn flat_iter<'a, T: SupportedDType<Self>>(
-        tensor: &'a Self::TensorPrimitive<T>,
+        tensor: &'a Self::TensorImpl<T>,
     ) -> impl Iterator<Item = &'a T> {
         CpuFlatIter(tensor.data.iter())
     }
 
     fn flat_iter_mut<'a, T: SupportedDType<Self>>(
-        tensor: &'a mut Self::TensorPrimitive<T>,
+        tensor: &'a mut Self::TensorImpl<T>,
     ) -> impl Iterator<Item = &'a mut T> {
         CpuFlatIterMut(tensor.data.iter_mut())
     }

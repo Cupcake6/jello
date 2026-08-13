@@ -1,5 +1,5 @@
 use crate::CpuBackend as B;
-use crate::device::CpuDevice as Device;
+use crate::device::CpuDeviceImpl as DeviceImpl;
 use smallvec::{SmallVec, smallvec};
 use tensor_core::{
     dtype::{DType, SupportedDType},
@@ -7,19 +7,19 @@ use tensor_core::{
     tensor_metadata::{TensorMetadata, shape::Shape, stride::Stride},
 };
 
-pub struct CpuTensor<T: SupportedDType<B>> {
+pub struct CpuTensorImpl<T: SupportedDType<B>> {
     pub(crate) data: SmallVec<[T; 1]>,
     pub(crate) metadata: TensorMetadata,
 }
 
-impl<T: SupportedDType<B>> CpuTensor<T> {
+impl<T: SupportedDType<B>> CpuTensorImpl<T> {
     const fn dtype(&self) -> DType {
         <T as SupportedDType<B>>::DTYPE
     }
 }
 
-impl<T: SupportedDType<B>> TensorOps<B, T> for CpuTensor<T> {
-    fn full(fill_value: T, shape: Shape, _device: &Device) -> Self {
+impl<T: SupportedDType<B>> TensorOps<B, T> for CpuTensorImpl<T> {
+    fn full(fill_value: T, shape: Shape, _device: &DeviceImpl) -> Self {
         let metadata = TensorMetadata::new(shape);
         let data = smallvec![fill_value; metadata.num_items() as usize];
 
@@ -29,7 +29,7 @@ impl<T: SupportedDType<B>> TensorOps<B, T> for CpuTensor<T> {
     fn from_flat_slice(
         shape: Shape,
         flat_slice: &[T],
-        _device: &Device,
+        _device: &DeviceImpl,
     ) -> Result<Self, error::ItemNumberMismatchError> {
         let metadata = TensorMetadata::new(shape);
 
@@ -62,6 +62,6 @@ impl<T: SupportedDType<B>> TensorOps<B, T> for CpuTensor<T> {
     }
 
     fn dtype(&self) -> DType {
-        CpuTensor::dtype(&self)
+        Self::dtype(&self)
     }
 }

@@ -1,2 +1,2 @@
 #[derive(Default)]
-pub struct CpuDevice;
+pub struct CpuDeviceImpl;

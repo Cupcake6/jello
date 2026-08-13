@@ -9,16 +9,16 @@ use tensor_core::{
 pub mod display;
 pub mod error;
 
-type TensorPrimitive<B, T> = <B as Backend>::TensorPrimitive<T>;
+type TensorImpl<B, T> = <B as Backend>::TensorImpl<T>;
 
-pub struct Tensor<B, T = <B as Backend>::DefaultDType>(TensorPrimitive<B, T>)
+pub struct Tensor<B, T = <B as Backend>::DefaultDType>(TensorImpl<B, T>)
 where
     B: Backend,
     T: SupportedDType<B>;
 
 impl<B: Backend, T: SupportedDType<B>> Tensor<B, T> {
     pub fn full<S: Into<Shape>>(fill_value: T, shape: S, device: &Device<B>) -> Self {
-        Self(TensorPrimitive::<B, T>::full(
+        Self(TensorImpl::<B, T>::full(
             fill_value,
             shape.into(),
             &device.0,
@@ -30,7 +30,7 @@ impl<B: Backend, T: SupportedDType<B>> Tensor<B, T> {
         flat_slice: &[T],
         device: &Device<B>,
     ) -> Result<Self, error::ItemNumberMismatchError> {
-        Ok(Self(TensorPrimitive::<B, T>::from_flat_slice(
+        Ok(Self(TensorImpl::<B, T>::from_flat_slice(
             shape.into(),
             flat_slice,
             &device.0,
