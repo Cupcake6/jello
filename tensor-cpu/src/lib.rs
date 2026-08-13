@@ -1,12 +1,9 @@
 use tensor_core::{backend::Backend, dtype::SupportedDType};
 
+mod device;
 mod dtype;
 mod tensor;
 mod tensor_features;
-
-mod device {
-    pub struct CpuDevice;
-}
 
 pub struct CpuBackend;
 

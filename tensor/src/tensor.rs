@@ -1,4 +1,4 @@
-use crate::backend::Backend;
+use crate::{backend::Backend, device::Device};
 use tensor_core::{
     backend::tensor_features,
     dtype::{DType, SupportedDType},
@@ -17,17 +17,23 @@ where
     T: SupportedDType<B>;
 
 impl<B: Backend, T: SupportedDType<B>> Tensor<B, T> {
-    pub fn full<S: Into<Shape>>(fill_value: T, shape: S) -> Self {
-        Self(TensorPrimitive::<B, T>::full(fill_value, shape.into()))
+    pub fn full<S: Into<Shape>>(fill_value: T, shape: S, device: &Device<B>) -> Self {
+        Self(TensorPrimitive::<B, T>::full(
+            fill_value,
+            shape.into(),
+            &device.0,
+        ))
     }
 
     pub fn from_flat_slice<S: Into<Shape>>(
         shape: S,
         flat_slice: &[T],
+        device: &Device<B>,
     ) -> Result<Self, error::ItemNumberMismatchError> {
         Ok(Self(TensorPrimitive::<B, T>::from_flat_slice(
             shape.into(),
             flat_slice,
+            &device.0,
         )?))
     }
 

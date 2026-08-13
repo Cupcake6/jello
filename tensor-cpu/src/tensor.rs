@@ -1,4 +1,5 @@
 use crate::CpuBackend as B;
+use crate::device::CpuDevice as Device;
 use smallvec::{SmallVec, smallvec};
 use tensor_core::{
     dtype::{DType, SupportedDType},
@@ -18,7 +19,7 @@ impl<T: SupportedDType<B>> CpuTensor<T> {
 }
 
 impl<T: SupportedDType<B>> TensorOps<B, T> for CpuTensor<T> {
-    fn full(fill_value: T, shape: Shape) -> Self {
+    fn full(fill_value: T, shape: Shape, _device: &Device) -> Self {
         let metadata = TensorMetadata::new(shape);
         let data = smallvec![fill_value; metadata.num_items() as usize];
 
@@ -28,6 +29,7 @@ impl<T: SupportedDType<B>> TensorOps<B, T> for CpuTensor<T> {
     fn from_flat_slice(
         shape: Shape,
         flat_slice: &[T],
+        _device: &Device,
     ) -> Result<Self, error::ItemNumberMismatchError> {
         let metadata = TensorMetadata::new(shape);
 

@@ -54,7 +54,8 @@ fn assert_tensor<T, const N: usize>(
 ) where
     T: SupportedDType<B>,
 {
-    let mut tensor = Tensor::full(fill_value, shape);
+    let device = Device::<B>::default();
+    let mut tensor = Tensor::full(fill_value, shape, &device);
     assert_eq!(tensor.num_dims(), shape.len());
     assert_eq!(tensor.num_items(), shape.iter().product());
     assert_eq!(***tensor.shape(), shape);
