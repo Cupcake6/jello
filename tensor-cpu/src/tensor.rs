@@ -4,7 +4,7 @@ use smallvec::{SmallVec, smallvec};
 use tensor_core::{
     dtype::{DType, SupportedDType},
     tensor::{TensorOps, error},
-    tensor_metadata::{TensorMetadata, shape::Shape, stride::Stride},
+    tensor_metadata::{TensorMetadata, shape::Shape},
 };
 
 pub struct CpuTensorImpl<T: SupportedDType<B>> {
@@ -55,10 +55,6 @@ impl<T: SupportedDType<B>> TensorOps<B, T> for CpuTensorImpl<T> {
 
     fn shape(&self) -> &Shape {
         self.metadata.shape()
-    }
-
-    fn stride(&self) -> &Stride {
-        self.metadata.stride()
     }
 
     fn dtype(&self) -> DType {

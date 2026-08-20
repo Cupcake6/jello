@@ -2,7 +2,7 @@ use crate::{
     backend::Backend,
     dtype::{DType, SupportedDType},
     dtype_traits,
-    tensor_metadata::{shape::Shape, stride::Stride},
+    tensor_metadata::shape::Shape,
 };
 
 pub mod error;
@@ -17,7 +17,6 @@ pub trait TensorOps<B: Backend, T: SupportedDType<B>>: Sized {
     fn num_dims(&self) -> usize;
     fn num_items(&self) -> u64;
     fn shape(&self) -> &Shape;
-    fn stride(&self) -> &Stride;
     fn dtype(&self) -> DType;
 
     fn zeros(shape: Shape, device: &B::DeviceImpl) -> Self

@@ -4,7 +4,7 @@ use tensor_core::{
     dtype::{DType, SupportedDType},
     dtype_traits,
     tensor::TensorOps,
-    tensor_metadata::{shape::Shape, stride::Stride},
+    tensor_metadata::shape::Shape,
 };
 
 pub mod display;
@@ -48,10 +48,6 @@ impl<B: Backend, T: SupportedDType<B>> Tensor<B, T> {
 
     pub fn shape(&self) -> &Shape {
         self.0.shape()
-    }
-
-    pub fn stride(&self) -> &Stride {
-        self.0.stride()
     }
 
     pub fn dtype(&self) -> DType {

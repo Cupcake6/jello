@@ -32,12 +32,4 @@ impl TensorMetadata {
     pub fn shape(&self) -> &Shape {
         &self.shape
     }
-
-    pub fn stride(&self) -> &Stride {
-        &self.stride
-    }
-
-    pub fn offset(&self) -> u64 {
-        self.offset
-    }
 }

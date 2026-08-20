@@ -4,18 +4,6 @@ use tensor_cpu::CpuBackend;
 
 type B = CpuBackend;
 
-fn contiguous_stride<const N: usize>(shape: [u64; N]) -> [u64; N] {
-    let mut output = [0; N];
-    let mut suffix_product = 1;
-
-    for i in (0..shape.len()).rev() {
-        output[i] = suffix_product;
-        suffix_product *= shape[i];
-    }
-
-    output
-}
-
 fn assert_data<T: SupportedDType<B>>(fill_value: T, tensor: &mut Tensor<B, T>) {
     for item in tensor.flat_iter() {
         assert_eq!(*item, fill_value);
@@ -59,7 +47,6 @@ fn assert_tensor<T, const N: usize>(
     assert_eq!(tensor.num_dims(), shape.len());
     assert_eq!(tensor.num_items(), shape.iter().product());
     assert_eq!(***tensor.shape(), shape);
-    assert_eq!(***tensor.stride(), contiguous_stride(shape));
     assert_eq!(tensor.dtype(), <T as SupportedDType<B>>::DTYPE);
     assert_data(fill_value, &mut tensor);
 }
