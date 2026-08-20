@@ -7,13 +7,18 @@ pub mod stride;
 pub struct TensorMetadata {
     shape: Shape,
     stride: Stride,
+    offset: u64,
 }
 
 impl TensorMetadata {
     pub fn new(shape: Shape) -> Self {
         let stride = Stride::contiguous(&shape);
 
-        Self { shape, stride }
+        Self {
+            shape,
+            stride,
+            offset: 0,
+        }
     }
 
     pub fn num_dims(&self) -> usize {
@@ -30,5 +35,9 @@ impl TensorMetadata {
 
     pub fn stride(&self) -> &Stride {
         &self.stride
+    }
+
+    pub fn offset(&self) -> u64 {
+        self.offset
     }
 }
