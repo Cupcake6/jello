@@ -1,24 +1,22 @@
-use crate::tensor_metadata::{shape::Shape, stride::Stride};
+use crate::tensor_metadata::{memory_layout::MemoryLayout, shape::Shape};
 
 pub mod dimensions;
+pub mod memory_layout;
 pub mod shape;
-pub mod stride;
 
 #[derive(Clone)]
 pub struct TensorMetadata {
     shape: Shape,
-    stride: Stride,
-    offset: u64,
+    memory_layout: MemoryLayout,
 }
 
 impl TensorMetadata {
     pub fn new(shape: Shape) -> Self {
-        let stride = Stride::contiguous(&shape);
+        let memory_layout = MemoryLayout::make_contiguous(&shape);
 
         Self {
             shape,
-            stride,
-            offset: 0,
+            memory_layout,
         }
     }
 
