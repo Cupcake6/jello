@@ -4,6 +4,7 @@ pub mod dimensions;
 pub mod shape;
 pub mod stride;
 
+#[derive(Clone)]
 pub struct TensorMetadata {
     shape: Shape,
     stride: Stride,

@@ -1,6 +1,7 @@
 use crate::tensor_metadata::dimensions::Dimensions;
 use std::ops::Deref;
 
+#[derive(Clone)]
 pub struct Shape {
     dimensions: Dimensions,
     num_items: u64,

@@ -1,6 +1,7 @@
 use crate::tensor_metadata::{dimensions::Dimensions, shape::Shape};
 use std::ops::Deref;
 
+#[derive(Clone)]
 pub struct Stride(Dimensions);
 
 impl Stride {

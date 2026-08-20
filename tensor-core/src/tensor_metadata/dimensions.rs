@@ -2,6 +2,7 @@ use smallvec::{SmallVec, smallvec};
 use std::fmt;
 use std::ops::{Deref, DerefMut};
 
+#[derive(Clone)]
 pub struct Dimensions(SmallVec<[u64; Self::NUM_INLINE_DIMS]>);
 
 impl Dimensions {
