@@ -1,6 +1,7 @@
 use crate::CpuBackend as B;
 use crate::device::CpuDeviceImpl as DeviceImpl;
 use smallvec::{SmallVec, smallvec};
+use std::sync::Arc;
 use tensor_core::{
     dtype::{DType, SupportedDType},
     tensor::{TensorOps, error},
@@ -8,7 +9,7 @@ use tensor_core::{
 };
 
 pub struct CpuTensorImpl<T: SupportedDType<B>> {
-    pub(crate) data: SmallVec<[T; 1]>,
+    pub(crate) data: Arc<SmallVec<[T; 1]>>,
     pub(crate) metadata: TensorMetadata,
 }
 
@@ -21,7 +22,7 @@ impl<T: SupportedDType<B>> CpuTensorImpl<T> {
 impl<T: SupportedDType<B>> TensorOps<B, T> for CpuTensorImpl<T> {
     fn full(fill_value: T, shape: Shape, _device: &DeviceImpl) -> Self {
         let metadata = TensorMetadata::new(shape);
-        let data = smallvec![fill_value; metadata.num_items() as usize];
+        let data = Arc::new(smallvec![fill_value; metadata.num_items() as usize]);
 
         Self { data, metadata }
     }
@@ -40,7 +41,7 @@ impl<T: SupportedDType<B>> TensorOps<B, T> for CpuTensorImpl<T> {
         }
 
         Ok(Self {
-            data: SmallVec::from_slice(flat_slice),
+            data: Arc::new(SmallVec::from_slice(flat_slice)),
             metadata,
         })
     }
