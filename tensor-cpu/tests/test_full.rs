@@ -6,11 +6,7 @@ type B = CpuBackend;
 
 fn assert_data<T: SupportedDType<B>>(fill_value: T, tensor: &mut Tensor<B, T>) {
     for item in tensor.flat_iter() {
-        assert_eq!(*item, fill_value);
-    }
-
-    for item_mut in tensor.flat_iter_mut() {
-        assert_eq!(*item_mut, fill_value);
+        assert_eq!(item, fill_value);
     }
 }
 
