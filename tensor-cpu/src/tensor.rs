@@ -17,7 +17,7 @@ pub struct CpuTensorImpl<T: SupportedDType<B>> {
 impl<T: SupportedDType<B>> TensorOps<B, T> for CpuTensorImpl<T> {
     fn full(fill_value: T, shape: Shape, _device: &DeviceImpl) -> Self {
         let metadata = TensorMetadata::new(shape);
-        let data = Arc::new(smallvec![fill_value; metadata.num_items() as usize]);
+        let data = Arc::new(smallvec![fill_value; metadata.shape().num_items() as usize]);
 
         Self { data, metadata }
     }
@@ -29,7 +29,7 @@ impl<T: SupportedDType<B>> TensorOps<B, T> for CpuTensorImpl<T> {
     ) -> Result<Self, error::ItemNumberMismatchError> {
         let metadata = TensorMetadata::new(shape);
 
-        let expected = metadata.num_items();
+        let expected = metadata.shape().num_items();
         let provided = flat_slice.len() as u64;
         if expected != provided {
             return Err(error::ItemNumberMismatchError(expected, provided));
@@ -42,11 +42,11 @@ impl<T: SupportedDType<B>> TensorOps<B, T> for CpuTensorImpl<T> {
     }
 
     fn num_dims(&self) -> usize {
-        self.metadata.num_dims()
+        self.metadata.shape().num_dims()
     }
 
     fn num_items(&self) -> u64 {
-        self.metadata.num_items()
+        self.metadata.shape().num_items()
     }
 
     fn shape(&self) -> &Shape {

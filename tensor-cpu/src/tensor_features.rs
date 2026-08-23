@@ -21,7 +21,7 @@ impl FlatIter for B {
     fn flat_iter<'a, T: SupportedDType<Self>>(
         tensor: &'a Self::TensorImpl<T>,
     ) -> impl Iterator<Item = T> {
-        if tensor.metadata.contiguous() {
+        if tensor.metadata.memory_layout().contiguous() {
             CpuFlatIter::Contiguous(tensor.data.iter())
         } else {
             CpuFlatIter::General
