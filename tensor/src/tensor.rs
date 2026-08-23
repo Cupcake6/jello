@@ -70,6 +70,10 @@ impl<B: Backend, T: SupportedDType<B>> Tensor<B, T> {
     {
         Self(TensorImpl::<B, T>::ones(shape.into(), &device.0))
     }
+
+    pub fn scalar(value: T, device: &Device<B>) -> Self {
+        Self(TensorImpl::<B, T>::scalar(value, &device.0))
+    }
 }
 
 impl<B, T: SupportedDType<B>> Tensor<B, T>
