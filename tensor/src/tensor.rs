@@ -80,7 +80,7 @@ impl<B, T: SupportedDType<B>> Tensor<B, T>
 where
     B: Backend + tensor_features::FlatIter,
 {
-    pub fn flat_iter<'a>(&'a self) -> impl Iterator<Item = T> {
+    pub fn flat_iter(&self) -> impl Iterator<Item = T> {
         B::flat_iter(&self.0)
     }
 }

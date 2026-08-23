@@ -42,7 +42,7 @@ fn bracket_count(index: u64, shape: &Shape) -> u64 {
 
     for i in (0..shape.len()).rev() {
         suffix_product *= shape[i];
-        if index % suffix_product == 0 {
+        if index.is_multiple_of(suffix_product) {
             bracket_count += 1;
         } else {
             return bracket_count;

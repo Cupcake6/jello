@@ -3,7 +3,7 @@ use tensor_cpu::CpuBackend;
 
 type B = CpuBackend;
 
-fn print<B: Backend, T: SupportedDType<B>>(tensor: Tensor<B, T>)
+fn print<B, T: SupportedDType<B>>(tensor: Tensor<B, T>)
 where
     B: tensor_features::FlatIter,
 {

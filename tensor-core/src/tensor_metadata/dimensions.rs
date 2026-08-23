@@ -9,7 +9,7 @@ impl Dimensions {
     const NUM_INLINE_DIMS: usize = 4;
 
     pub fn num_dims(&self) -> usize {
-        self.0.len() as usize
+        self.0.len()
     }
 
     pub fn as_slice(&self) -> &[u64] {
@@ -21,7 +21,7 @@ impl Dimensions {
     }
 
     pub fn zeros(num_dims: usize) -> Self {
-        Self(smallvec![0; num_dims as usize])
+        Self(smallvec![0; num_dims])
     }
 }
 
