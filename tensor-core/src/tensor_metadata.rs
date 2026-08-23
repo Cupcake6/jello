@@ -1,4 +1,4 @@
-use crate::tensor_metadata::{memory_layout::MemoryLayout, shape::Shape};
+use crate::tensor_metadata::{dimensions::Dimensions, memory_layout::MemoryLayout, shape::Shape};
 
 pub mod dimensions;
 pub mod memory_layout;
@@ -30,5 +30,13 @@ impl TensorMetadata {
 
     pub fn shape(&self) -> &Shape {
         &self.shape
+    }
+
+    pub fn contiguous(&self) -> bool {
+        self.memory_layout.contiguous()
+    }
+
+    pub fn stride(&self) -> &Dimensions {
+        self.memory_layout.stride()
     }
 }
