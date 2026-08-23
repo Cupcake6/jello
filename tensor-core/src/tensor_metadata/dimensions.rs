@@ -6,7 +6,7 @@ use std::ops::{Deref, DerefMut};
 pub struct Dimensions(SmallVec<[u64; Self::NUM_INLINE_DIMS]>);
 
 impl Dimensions {
-    const NUM_INLINE_DIMS: usize = 5;
+    const NUM_INLINE_DIMS: usize = 4;
 
     pub fn num_dims(&self) -> usize {
         self.0.len() as usize
