@@ -32,4 +32,8 @@ pub trait TensorOps<B: Backend, T: SupportedDType<B>>: Sized + Clone {
     {
         Self::full(<T as dtype_traits::One>::ONE, shape, device)
     }
+
+    fn scalar(value: T, device: &B::DeviceImpl) -> Self {
+        Self::full(value, [].into(), device)
+    }
 }
