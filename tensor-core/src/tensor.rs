@@ -7,7 +7,7 @@ use crate::{
 
 pub mod error;
 
-pub trait TensorOps<B: Backend, T: SupportedDType<B>>: Sized {
+pub trait TensorOps<B: Backend, T: SupportedDType<B>>: Sized + Clone {
     fn full(fill_value: T, shape: Shape, device: &B::DeviceImpl) -> Self;
     fn from_flat_slice(
         shape: Shape,

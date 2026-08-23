@@ -8,6 +8,7 @@ use tensor_core::{
     tensor_metadata::{TensorMetadata, shape::Shape},
 };
 
+#[derive(Clone)]
 pub struct CpuTensorImpl<T: SupportedDType<B>> {
     pub(crate) data: Arc<SmallVec<[T; 1]>>,
     pub(crate) metadata: TensorMetadata,
