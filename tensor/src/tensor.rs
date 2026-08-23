@@ -1,3 +1,6 @@
+pub use tensor_core::tensor::error;
+pub use tensor_core::tensor_metadata::dimensions;
+
 use crate::{backend::Backend, device::Device};
 use tensor_core::{
     backend::tensor_features,
@@ -7,8 +10,7 @@ use tensor_core::{
     tensor_metadata::shape::Shape,
 };
 
-pub mod display;
-pub mod error;
+mod display;
 
 type TensorImpl<B, T> = <B as Backend>::TensorImpl<T>;
 

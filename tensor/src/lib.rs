@@ -1,7 +1,7 @@
-pub mod backend;
+pub use tensor_core::backend;
+pub use tensor_core::dtype;
+pub use tensor_core::dtype_traits;
+
 pub mod device;
-pub mod dtype;
 pub mod prelude;
 pub mod tensor;
-
-pub use tensor_core::dtype_traits;
