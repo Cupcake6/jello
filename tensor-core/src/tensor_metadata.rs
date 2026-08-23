@@ -20,23 +20,11 @@ impl TensorMetadata {
         }
     }
 
-    pub fn num_dims(&self) -> usize {
-        self.shape.num_dims()
-    }
-
-    pub fn num_items(&self) -> u64 {
-        self.shape.num_items()
-    }
-
     pub fn shape(&self) -> &Shape {
         &self.shape
     }
 
-    pub fn contiguous(&self) -> bool {
-        self.memory_layout.contiguous()
-    }
-
-    pub fn stride(&self) -> &Dimensions {
-        self.memory_layout.stride()
+    pub fn memory_layout(&self) -> &MemoryLayout {
+        &self.memory_layout
     }
 }
