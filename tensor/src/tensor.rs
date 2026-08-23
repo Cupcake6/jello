@@ -12,6 +12,7 @@ pub mod error;
 
 type TensorImpl<B, T> = <B as Backend>::TensorImpl<T>;
 
+#[derive(Clone)]
 pub struct Tensor<B, T = <B as Backend>::DefaultDType>(TensorImpl<B, T>)
 where
     B: Backend,
