@@ -25,6 +25,11 @@ impl<const N: usize, T: TensorItem> Tensor<N, T> {
         N
     }
 
+    #[inline]
+    pub fn shape(&self) -> Shape<N> {
+        self.shape
+    }
+
     pub fn full(value: T, shape: impl Into<Shape<N>>) -> Self {
         let shape = shape.into();
         let data = Arc::from(vec![value; shape.num_items() as usize]);
