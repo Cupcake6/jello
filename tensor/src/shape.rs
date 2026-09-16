@@ -7,14 +7,17 @@ pub struct Shape<const N: usize> {
 }
 
 impl<const N: usize> Shape<N> {
+    #[inline]
     pub fn dimensions(&self) -> &[u64; N] {
         &self.dimensions
     }
 
+    #[inline]
     pub fn num_items(&self) -> u64 {
         self.num_items
     }
 
+    #[inline]
     pub fn num_dims(&self) -> usize {
         N
     }

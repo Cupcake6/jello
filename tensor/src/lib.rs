@@ -15,10 +15,12 @@ pub struct Tensor<const N: usize, T: TensorItem> {
 }
 
 impl<const N: usize, T: TensorItem> Tensor<N, T> {
+    #[inline]
     pub fn num_items(&self) -> u64 {
         self.shape.num_items()
     }
 
+    #[inline]
     pub fn num_dims(&self) -> usize {
         N
     }
